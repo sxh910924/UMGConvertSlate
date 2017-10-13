@@ -241,3 +241,7 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
+# ue4 temp forder
+Binaries
+Intermediate
+Saved
