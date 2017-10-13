@@ -1,2 +1,5 @@
 # UMGConvertSlate
-ue4 umg layout convert to ue4 slate code
+把UMG的布局，转换成Slate的布局语法。
+
+## 2017.10.13
+ 1. 把蓝图类拷贝到项目里，准备把转换功能重写成代码
