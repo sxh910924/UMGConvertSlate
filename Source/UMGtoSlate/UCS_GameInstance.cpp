@@ -1,6 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#pragma once
+#include "UCS_GameInstance.h"
 
-#include "CoreMinimal.h"
-#include "UMG.h"
+
+
+
+void UUCS_GameInstance::test1()
+{
+
+
+}

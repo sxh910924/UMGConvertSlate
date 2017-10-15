@@ -7,5 +7,3 @@ void UUMGConvSlateLib::CopyTextFunc(FString InString)
 {
 	FFileHelper::SaveStringToFile(InString,TEXT("E:/123/aa.txt"));
 }
-
-

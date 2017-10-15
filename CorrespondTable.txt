@@ -1,0 +1,43 @@
+left is UMG widget
+right is Slate widget
+
+part1
+Border(UBorder) = SBorder
+Button(UButton) = SButton
+CheckBox(UCheckBox) = SCheckBox
+Image(UImage) = SImage
+Text(UTextBlock) = STextBlock
+EditableText(UEditableText) = SEditableText
+TextBox(UEditableTextBox) = SEditableTextBox
+CanvasPanel(UCanvasPanel) = SConstraintCanvas
+GridPanel(UGridPanel) = SGridPanel
+HorizontalBox(USHorizontalBox) = SHorizontalBox
+VerticalBox(UVerticalBox) = SVerticalBox
+Overlay(UOverlay) = SOverlay
+ScrollBox(UScrollBox) = SScrollBox
+SizeBox(USizeBox) = SBox
+UniformGridPanel(UUniformGridPanel) = SUniformGridPanel
+WidgetSwitcher(UWidgetSwitcher) = SWidgetSwitcher
+WrapBox(UWrapBox) = SWrapBox
+Spacer(USpacer) = SSpacer
+MenuAnchor(UMenuAnchor) = SMenuAnchor
+BackgroundBlur(UBackgroundBlur) = SBackgroundBlur
+
+part2,Do not do part2 temporarily
+EditableText(Multi-Line)
+NativeWidgetHost
+Throbber
+InputKeySelector
+WindowTitleBarArea
+NameedSlot
+ProgressBar
+Slider
+ExpandableArea
+ComboBox(String)
+SpinBox
+TextBox(Multi-Line)
+InvalidationBox
+RetainerBox
+SafeZone
+ScaleBox
+CircularThrobber
