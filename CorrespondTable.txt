@@ -2,16 +2,16 @@ left is UMG widget
 right is Slate widget
 
 part1
+CanvasPanel(UCanvasPanel) = SConstraintCanvas
+Image(UImage) = SImage
 Border(UBorder) = SBorder
 Button(UButton) = SButton
 CheckBox(UCheckBox) = SCheckBox
-Image(UImage) = SImage
 Text(UTextBlock) = STextBlock
 EditableText(UEditableText) = SEditableText
 TextBox(UEditableTextBox) = SEditableTextBox
-CanvasPanel(UCanvasPanel) = SConstraintCanvas
 GridPanel(UGridPanel) = SGridPanel
-HorizontalBox(USHorizontalBox) = SHorizontalBox
+HorizontalBox(UHorizontalBox) = SHorizontalBox
 VerticalBox(UVerticalBox) = SVerticalBox
 Overlay(UOverlay) = SOverlay
 ScrollBox(UScrollBox) = SScrollBox

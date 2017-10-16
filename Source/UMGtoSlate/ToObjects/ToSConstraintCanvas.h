@@ -16,7 +16,9 @@ class UMGTOSLATE_API UToSConstraintCanvas : public UToSWidget
 	GENERATED_BODY()
 	
 public:
-	
 
+	UToSConstraintCanvas();
+
+	virtual void GenerateChildWidget() override;
 	
 };

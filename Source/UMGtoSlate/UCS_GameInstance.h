@@ -15,7 +15,5 @@ class UMGTOSLATE_API UUCS_GameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
-
-	void test1();
 	
 };

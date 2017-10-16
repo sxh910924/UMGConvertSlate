@@ -2,11 +2,3 @@
 
 #include "UCS_GameInstance.h"
 
-
-
-
-void UUCS_GameInstance::test1()
-{
-
-
-}
