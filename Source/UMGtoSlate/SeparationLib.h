@@ -4,10 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "UMGtoSlate.h"
-#include "UCS_GameInstance.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Widget.h"
-#include "ToSConstraintCanvas.h"
 #include "SeparationLib.generated.h"
 
 /**
@@ -25,10 +23,14 @@ public:
 	static void GenerateSlateCode(UWidget* InWidget);
 
 	// 生成转换对象
-	static void GenerateToObjects();
+	static void GenerateToObjectsMap();
 
 public:
 
+	// 用于指定转换类的Map
 	static TMap<FString, UClass*> SwitchMap;
+
+	// 层计数
+	static int32 LayerCount;
 	
 };

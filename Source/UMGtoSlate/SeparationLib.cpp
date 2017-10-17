@@ -2,26 +2,51 @@
 
 #include "SeparationLib.h"
 
+#include "ToSConstraintCanvas.h"
+#include "ToSImage.h"
+#include "StrAssembleLib.h"
+
 TMap<FString, UClass*> USeparationLib::SwitchMap;
 
+int32 USeparationLib::LayerCount = -1;
 
 void USeparationLib::GenerateSlateCode(UWidget* InWidget)
 {
-	GenerateToObjects();
+	USeparationLib::GenerateToObjectsMap();
+
+	//static int32 namePlus = 0;
 
 	FString className = InWidget->GetClass()->GetName();
 	UE_LOG(LogClass, Warning, TEXT("class name %s"), *className);
 	if (SwitchMap.Contains(className))
 	{
 		UE_LOG(LogClass, Warning, TEXT("SwitchMap has key %s"),*className);
-		UToSWidget* outer = nullptr;
-		UToSWidget* targetToSWidget = NewObject<UToSWidget>(outer, SwitchMap[className]);
+		UToSWidget* targetToSWidget = NewObject<UToSWidget>();
+		UClass* targetClass = SwitchMap[className];
+		//FName objectName = FName(*FString::FromInt(++namePlus));
+		targetToSWidget = NewObject<UToSWidget>(targetToSWidget, targetClass);
 		if (targetToSWidget)
 		{
+			++LayerCount;
+			targetToSWidget->TabCount = LayerCount;
 			targetToSWidget->GenerateHead(InWidget);
+			UStrAssembleLib::Str_Final_Head(targetToSWidget);
+
 			targetToSWidget->GenerateWidgetProperty();
+			UStrAssembleLib::Str_Final_Widget(targetToSWidget);
+
 			targetToSWidget->GenerateSpecialWidgetProperty();
+			UStrAssembleLib::Str_Final_SpecialWidget(targetToSWidget);
+
 			targetToSWidget->GenerateChildWidget();
+		 	UStrAssembleLib::AddUToSWidget(targetToSWidget);
+
+			--LayerCount;
+			if (LayerCount==0)
+			{
+				// 全部转换完毕，进入文本转换
+				UStrAssembleLib::Str_FinalSlateCode();
+			}
 		}
 	}
 	else
@@ -30,8 +55,9 @@ void USeparationLib::GenerateSlateCode(UWidget* InWidget)
 	}
 }
 
-void USeparationLib::GenerateToObjects()
+void USeparationLib::GenerateToObjectsMap()
 {
 	if (SwitchMap.Num() > 0) return;
 	SwitchMap.Emplace(FString(TEXT("CanvasPanel")), UToSConstraintCanvas::StaticClass());
+	SwitchMap.Emplace(FString(TEXT("Image")), UToSImage::StaticClass());
 }

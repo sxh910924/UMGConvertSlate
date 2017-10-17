@@ -18,8 +18,6 @@ void UToSWidget::GenerateHead(UWidget* NewWidget)
 
 void UToSWidget::GenerateWidgetProperty()
 {
-	//SNew(SConstraintCanvas).Visibility(EVisibility::Visible).EnabledState();
-
 	ESlateVisibility vis = ThisWidget->GetVisibility();
 	if (vis != ToSWidgetDefaultVisibility)
 	{
@@ -37,5 +35,42 @@ int32 UToSWidget::GetPanalWidgetChildrenCount() const
 	else
 	{
 		return 0;
+	}
+}
+
+void UToSWidget::AddSlotProperty(const int32 SlotIndex, const TArray<FString> PropertyArr)
+{
+	if (PropertyArr.Num() == 0) return;
+	const bool exist = this->SlotProperty.Contains(SlotIndex);
+	if (exist)
+	{
+		SlotProperty[SlotIndex] += PropertyArr;
+	}
+	else
+	{
+		SlotProperty.Emplace(SlotIndex, PropertyArr);
+	}
+}
+
+void UToSWidget::AddSlotProperty(const int32 SlotIndex, const FString &PropertyValue)
+{
+	const bool exist = this->SlotProperty.Contains(SlotIndex);
+	if (exist)
+	{
+		SlotProperty[SlotIndex].Add(PropertyValue);
+	}
+	else
+	{
+		TArray<FString> firstArr;
+		firstArr.Add(PropertyValue);
+		SlotProperty.Emplace(SlotIndex, firstArr);
+	}
+}
+
+void UToSWidget::LoopPanelSlot()
+{
+	for (int32 loop = 0; loop < ChildSlotCount; ++loop)
+	{
+		PanelSlotLoop.ExecuteIfBound(loop);
 	}
 }
