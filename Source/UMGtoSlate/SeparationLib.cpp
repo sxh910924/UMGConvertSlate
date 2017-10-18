@@ -42,7 +42,7 @@ void USeparationLib::GenerateSlateCode(UWidget* InWidget)
 		 	UStrAssembleLib::AddUToSWidget(targetToSWidget);
 
 			--LayerCount;
-			if (LayerCount==0)
+			if (LayerCount==-1)
 			{
 				// 全部转换完毕，进入文本转换
 				UStrAssembleLib::Str_FinalSlateCode();

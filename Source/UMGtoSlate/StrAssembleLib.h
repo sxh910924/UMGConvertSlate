@@ -25,14 +25,38 @@ public: // 基础字符串
 	// 返回“.Visibility(EVisibility::Visible)”
 	static FString Str_Visibility(ESlateVisibility SlateVisibility);
 
-	// 返回数组，数组内“.HAlign(HAlign_Left)”、“.VAlign(VAlign_Top)”
-	static TArray<FString> Str_Alignment(FVector2D Alignment);
+	// 返回数组，数组内“.Alignment(FVector2D())”
+	static FString Str_Alignment(FVector2D Alignment);
+
+	// 返回数组，数组内“FVector2D()”
+	static FString Str_Vector2D(FVector2D Vector2d);
 
 	// 返回“.HAlign(HAlign_Left)”
 	static FString Str_AlignmentH(float AlignmentH);
 
 	// 返回“.VAlign(VAlign_Top)”
 	static FString Str_AlignmentV(float AlignmentV);
+
+	// 返回“.Offset(FMargin(1,1,1,0))”
+	static FString Str_Offset(FMargin Offset);
+
+	// 返回“FMargin(1,1,1,0)”
+	static FString Str_Margin(FMargin Margin);
+
+	// 返回“.ZOrder(0)”
+	static FString Str_ZOrder(int32 ZOrder);
+
+	// 返回“.AutoSize(true)”
+	static FString Str_AutoSize(bool bAutoSize);
+
+	// 返回“.Anchors(FAnchors())”
+	static FString Str_AnchorsSlot(FAnchors Anchors);
+
+	// 返回“FAnchors()”
+	static FString Str_Anchors(FAnchors Anchors);
+
+	// 是否相等
+	static bool AnchorsIsEqual(const FAnchors &Anchors1, const FAnchors &Anchors2);
 
 	// 返回“+ ClassName::Slot()”
 	static FString Str_NormalSlotHead(const FString &ClassName);

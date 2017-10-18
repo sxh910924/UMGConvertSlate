@@ -36,11 +36,32 @@ FString UStrAssembleLib::Str_Visibility(ESlateVisibility SlateVisibility)
 	return ret;
 }
 
-TArray<FString> UStrAssembleLib::Str_Alignment(FVector2D Alignment)
+FString UStrAssembleLib::Str_Alignment(FVector2D Alignment)
 {
-	TArray<FString> ret;
-	ret.Add(UStrAssembleLib::Str_AlignmentH(Alignment.X));
-	ret.Add(UStrAssembleLib::Str_AlignmentV(Alignment.Y));
+	FString v2d = UStrAssembleLib::Str_Vector2D(Alignment);
+	return FString::Printf(TEXT(".Alignment(%s)"),*v2d);
+}
+
+FString UStrAssembleLib::Str_Vector2D(FVector2D Vector2d)
+{
+	FString ret;
+
+	if (Vector2d.X == Vector2d.Y)
+	{
+		if (FMath::IsNearlyZero(Vector2d.X))
+		{
+			ret = FString(TEXT("FVector2D()"));
+		}
+		else
+		{
+			ret = FString::Printf(TEXT("FVector2D(%.3ff)"), Vector2d.X);
+		}
+	}
+	else
+	{
+		ret = FString::Printf(TEXT("FVector2D(%.3ff,%.3ff)"), Vector2d.X, Vector2d.Y);
+	}
+	
 	return ret;
 }
 
@@ -80,6 +101,105 @@ FString UStrAssembleLib::Str_AlignmentV(float AlignmentV)
 	return ret;
 }
 
+FString UStrAssembleLib::Str_Offset(FMargin Offset)
+{
+	FString margin = UStrAssembleLib::Str_Margin(Offset);
+	return FString::Printf(TEXT(".Offset(%s)"),*margin);
+}
+
+FString UStrAssembleLib::Str_Margin(FMargin Margin)
+{
+	FString ret;
+	if (Margin == FMargin())
+	{
+		ret = FString::Printf(TEXT("FMargin()"));
+	}
+	else
+	{
+		if ((Margin.Left == Margin.Right) && (Margin.Right == Margin.Top) && (Margin.Top == Margin.Bottom))
+		{
+			ret = FString::Printf(TEXT("FMargin(%.3ff)"), Margin.Left);
+		}
+		else if ((Margin.Left == Margin.Right) && (Margin.Top == Margin.Bottom))
+		{
+			ret = FString::Printf(TEXT("FMargin(%.3ff,%.3ff)"), Margin.Left, Margin.Top);
+		}
+		else
+		{
+			ret = FString::Printf(TEXT("FMargin(%.3ff,%.3ff,%.3ff,%.3ff)"), Margin.Left, Margin.Top, Margin.Right, Margin.Bottom);
+		}
+	}
+	
+	return ret;
+}
+
+FString UStrAssembleLib::Str_ZOrder(int32 ZOrder)
+{
+	return FString::Printf(TEXT(".ZOrder(%d)"), ZOrder);
+}
+
+FString UStrAssembleLib::Str_AutoSize(bool bAutoSize)
+{
+	if (bAutoSize)
+	{
+		return FString::Printf(TEXT(".AutoSize(true)"));
+	}
+	else
+	{
+		return FString::Printf(TEXT(".AutoSize(false)"));
+	}
+}
+
+FString UStrAssembleLib::Str_AnchorsSlot(FAnchors Anchors)
+{
+	FString anchors = UStrAssembleLib::Str_Anchors(Anchors);
+	return FString::Printf(TEXT(".Anchors(%s)"), *anchors);
+}
+
+FString UStrAssembleLib::Str_Anchors(FAnchors Anchors)
+{
+	FString ret;
+	if (UStrAssembleLib::AnchorsIsEqual(Anchors, FAnchors()))
+	{
+		ret = FString::Printf(TEXT("FAnchors()"));
+	}
+	else
+	{
+		if ((Anchors.Maximum.X == Anchors.Maximum.Y) && (Anchors.Maximum.Y == Anchors.Minimum.Y) && (Anchors.Minimum.Y == Anchors.Minimum.X))
+		{
+			ret = FString::Printf(TEXT("FAnchors(%.1ff)"), Anchors.Maximum.X);
+		}
+		else if ( (Anchors.Minimum.X == Anchors.Maximum.X)&& (Anchors.Minimum.Y == Anchors.Maximum.Y) )
+		{
+			ret = FString::Printf(TEXT("FAnchors(%.1ff,%.1ff)"), Anchors.Minimum.X, Anchors.Minimum.Y);
+		}
+		else
+		{
+			ret = FString::Printf(TEXT("FAnchors(%.1ff,%.1ff,%.1ff,%.1ff)"), Anchors.Minimum.X, Anchors.Minimum.Y, Anchors.Maximum.X, Anchors.Maximum.Y);
+		}
+	}
+	return ret;
+}
+
+bool UStrAssembleLib::AnchorsIsEqual(const FAnchors &Anchors1, const FAnchors &Anchors2)
+{
+	if (Anchors1.Minimum == Anchors2.Minimum)
+	{
+		if (Anchors1.Maximum == Anchors2.Maximum)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
 FString UStrAssembleLib::Str_NormalSlotHead(const FString &ClassName)
 {
 	return FString::Printf(TEXT("+ %s::Slot()"),*ClassName);
@@ -113,6 +233,7 @@ FString UStrAssembleLib::Str_NewLine()
 void UStrAssembleLib::Str_FinalSlateCode()
 {
 	UUMGConvSlateLib::CopyTextFunc(FinalSlateCode);
+	FinalSlateCode.Empty();
 }
 
 void UStrAssembleLib::Str_Final_Head(UToSWidget* ToWidget)
